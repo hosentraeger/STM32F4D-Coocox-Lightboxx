@@ -7,6 +7,8 @@
 #include "string.h"
 #include "DispatcherTask.h"
 
+xSemaphoreHandle xCDCSemaphore = NULL;
+
 void USBTask ( void * pvParameters )
 {
 	char buf[APP_TX_BUF_SIZE]; // puffer fuer Datenempfang
@@ -20,11 +22,16 @@ void USBTask ( void * pvParameters )
 	// (Virtueller-ComPort)
 	UB_USB_CDC_Init ( );
 
+	vSemaphoreCreateBinary( xCDCSemaphore );
+	xSemaphoreTake( xCDCSemaphore, ( portTickType ) 10 );
+	printf ( "CDC semaphore ready\n");
+	xSemaphoreGive( xCDCSemaphore );
+
 	while ( 1 )
 	{
 		// Test ob USB-Verbindung zum PC besteht
 		if(UB_USB_CDC_GetStatus()==USB_CDC_CONNECTED) {
-			// Ceck ob Daten per USB empfangen wurden
+			// Check ob Daten per USB empfangen wurden
 			check=UB_USB_CDC_ReceiveString ( buf );
 			if ( check == RX_READY )
 			{
@@ -39,13 +46,16 @@ void USBTask ( void * pvParameters )
 					{
 						*parameter = '\0';
 						parameter++;
-						if ( 0 != xDispatcherQueue )
-						{
-							strncpy ( xDispatcherMessage.Domain, domain, 8 );
-							strncpy ( xDispatcherMessage.Command, command, 8 );
-							strncpy ( xDispatcherMessage.Parameter, parameter, 16 );
-							xQueueSendToBack ( xDispatcherQueue, ( void * ) &pxDispatcherMessage, ( portTickType ) 0 );
-						}
+					}
+					if ( 0 != xDispatcherQueue )
+					{
+						strncpy ( xDispatcherMessage.Domain, domain, 8 );
+						strncpy ( xDispatcherMessage.Command, command, 8 );
+						if ( parameter )
+							strncpy ( xDispatcherMessage.Parameter, parameter, 128 );
+						else
+							xDispatcherMessage.Parameter[0] = '\0';
+						xQueueSendToBack ( xDispatcherQueue, ( void * ) &pxDispatcherMessage, ( portTickType ) 0 );
 					};
 				};
 			};

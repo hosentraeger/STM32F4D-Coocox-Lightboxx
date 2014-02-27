@@ -4,83 +4,124 @@
 #include "stm32f4_discovery.h"
 #include "DispatcherTask.h"
 #include "stm32_ub_rtc.h"
-#include "printf.h"
 #include "LCDTask.h"
+#include "AudioTask.h"
+#include "USBTask.h"
 
+#include "stdio.h"
 #include "string.h"
 #include "stdlib.h"
 
+xQueueHandle xDispatcherQueue = NULL;
+
+void SendTimeToLCD ( struct ALCDMessage *pxLCDMessage )
+{
+	if ( 0 != xLCDQueue )
+	{
+		UB_RTC_GetClock(RTC_DEC);
+		pxLCDMessage->ucX = 0;
+		pxLCDMessage->ucY = 8;
+		sprintf ( pxLCDMessage->ucData, "%02d:%02d:%02d", UB_RTC.std, UB_RTC.min, UB_RTC.sek );
+		xQueueSendToBack ( xLCDQueue, ( void * ) &pxLCDMessage, ( portTickType ) 0 );
+	};
+};
+
+void GetRTCTime ( )
+{
+	if( xSemaphoreTake ( xCDCSemaphore, ( portTickType ) 10 ) == pdTRUE )
+	{
+		UB_RTC_GetClock(RTC_DEC);
+		printf ( "%02d.%02d.%02d %02d:%02d:%02d\r\n", UB_RTC.tag, UB_RTC.monat, UB_RTC.jahr, UB_RTC.std, UB_RTC.min, UB_RTC.sek );
+		xSemaphoreGive( xCDCSemaphore );
+	};
+};
+
+void SetRTCTime ( char * sTimeExpression )
+{
+	char  *yy, *mon, *dd, *hh, *mm, *ss;
+	hh = strchr ( sTimeExpression, ' ' );
+	if ( hh )
+	{
+		*hh = '\0';
+		hh++;
+		dd = sTimeExpression;
+		mon = strchr ( dd, '.' );
+		if ( 0 != mon )
+		{
+			*mon = '\0';
+			mon++;
+			yy = strchr ( mon, '.' );
+			if ( 0 != yy )
+			{
+				*yy = '\0';
+				yy++;
+				UB_RTC.tag = atoi ( dd );
+				UB_RTC.monat = atoi ( mon );
+				UB_RTC.jahr = atoi ( yy );
+				UB_RTC.wotag=5;
+			};
+		};
+	}
+	else
+	{
+		hh = sTimeExpression;
+	};
+	mm = strchr ( hh, ':' );
+	if ( 0 != mm )
+	{
+		*mm = '\0';
+		mm++;
+		ss = strchr ( mm, ':' );
+		if ( 0 != ss )
+		{
+			*ss = '\0';
+			ss++;
+			UB_RTC.std = atoi ( hh );
+			UB_RTC.min = atoi ( mm );
+			UB_RTC.sek = atoi ( ss );
+
+			UB_RTC_SetClock ( RTC_DEC );
+		};
+	};
+};
+
+void ForwardAudioMessage ( const char * sCommand, const char * sFileName )
+{
+	struct AAudioMessage xAudioMessage, *pxAudioMessage = & xAudioMessage;
+	strncpy ( xAudioMessage.Command, sCommand, 8 - 1 );
+	strncpy ( xAudioMessage.Parameter, sFileName, 128 - 1 );
+	xQueueSendToBack ( xAudioQueue, ( void * ) &pxAudioMessage, ( portTickType ) 0 );
+};
+
 void DispatcherTask ( void * pvParameters )
 {
-	struct ALCDMessage xLCDMessage, *pxLCDMessage;
 	struct ADispatcherMessage *pxDispatcherMessage;
+	struct ALCDMessage xLCDMessage, *pxLCDMessage = & xLCDMessage;
 
-	pxLCDMessage = & xLCDMessage;
+	UB_RTC_Init ( );
 
-	UB_RTC_Init();
-
-    xDispatcherQueue = xQueueCreate ( 8, sizeof ( unsigned long ) );
+	xDispatcherQueue = xQueueCreate ( 8, sizeof ( unsigned long ) );
 
 	while ( 1 )
 	{
-		if ( 0 != xLCDQueue )
-		{
-			UB_RTC_GetClock(RTC_DEC);
-			xLCDMessage.ucX = 0;
-			xLCDMessage.ucY = 8;
-			sprintf ( xLCDMessage.ucData, "%02d:%02d:%02d", UB_RTC.std, UB_RTC.min, UB_RTC.sek );
-			xQueueSendToBack ( xLCDQueue, ( void * ) &pxLCDMessage, ( portTickType ) 0 );
-		};
+		SendTimeToLCD ( pxLCDMessage );
 
 		if ( xQueueReceive ( xDispatcherQueue, & ( pxDispatcherMessage ), 250 / portTICK_RATE_MS ) )
 		{
-			if ( !strncmp ( pxDispatcherMessage->Domain, "RTC", 3 ) && !strncmp ( pxDispatcherMessage->Command, "SET", 3 ) )
+			if ( !strnicmp ( pxDispatcherMessage->Domain, "RTC", 3 ) )
 			{
-				char  *yy, *mon, *dd, *hh, *mm, *ss;
-				hh = strchr ( pxDispatcherMessage->Parameter, ' ' );
-				if ( hh )
+				if ( !strnicmp ( pxDispatcherMessage->Command, "SET", 3 ) )
 				{
-					*hh = '\0';
-					hh++;
-					dd = pxDispatcherMessage->Parameter;
-					mon = strchr ( dd, '.' );
-					if ( 0 != mon )
-					{
-						*mon = '\0';
-						mon++;
-						yy = strchr ( mon, '.' );
-						if ( 0 != yy )
-						{
-							*yy = '\0';
-							yy++;
-						    UB_RTC.tag = atoi ( dd );
-						    UB_RTC.monat = atoi ( mon );
-						    UB_RTC.jahr = atoi ( yy );
-						    UB_RTC.wotag=3;
-						};
-					};
+					SetRTCTime ( pxDispatcherMessage->Parameter );
 				}
-				else
+				else if ( !strnicmp ( pxDispatcherMessage->Command, "GET", 3 ) )
 				{
-					hh = pxDispatcherMessage->Parameter;
+					GetRTCTime ( );
 				};
-				mm = strchr ( hh, ':' );
-				if ( 0 != mm )
-				{
-					*mm = '\0';
-					mm++;
-					ss = strchr ( mm, ':' );
-					if ( 0 != ss )
-					{
-						*ss = '\0';
-						ss++;
-					    UB_RTC.std = atoi ( hh );
-					    UB_RTC.min = atoi ( mm );
-					    UB_RTC.sek = atoi ( ss );
-
-					    UB_RTC_SetClock ( RTC_DEC );
-					};
-				};
+			}
+			else if ( !strnicmp ( pxDispatcherMessage->Domain, "AUDIO", 5 ) )
+			{
+				ForwardAudioMessage ( pxDispatcherMessage->Command, pxDispatcherMessage->Parameter );
 			};
 		};
 	};

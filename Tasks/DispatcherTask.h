@@ -8,10 +8,10 @@ struct ADispatcherMessage
 {
 	char Domain[8];
 	char Command[8];
-	char Parameter[16];
+	char Parameter[128];
 };
 
-xQueueHandle xDispatcherQueue;
+extern xQueueHandle xDispatcherQueue;
 
 
 void DispatcherTask ( void * pvParameters );

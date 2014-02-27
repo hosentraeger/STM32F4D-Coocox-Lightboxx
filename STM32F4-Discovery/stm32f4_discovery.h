@@ -61,7 +61,9 @@ typedef enum
 
 typedef enum 
 {  
-  BUTTON_USER = 0,
+	  BUTTON_USER = 0,
+	  BUTTON_RIGHT = 1,
+	  BUTTON_ENCODER = 2,
 } Button_TypeDef;
 
 typedef enum 
@@ -104,7 +106,7 @@ typedef enum
 /** @addtogroup STM32F4_DISCOVERY_LOW_LEVEL_BUTTON
   * @{
   */  
-#define BUTTONn                          1  
+#define BUTTONn                          3
 
 /**
  * @brief Wakeup push-button
@@ -116,6 +118,28 @@ typedef enum
 #define USER_BUTTON_EXTI_PORT_SOURCE   EXTI_PortSourceGPIOA
 #define USER_BUTTON_EXTI_PIN_SOURCE    EXTI_PinSource0
 #define USER_BUTTON_EXTI_IRQn          EXTI0_IRQn 
+
+/**
+ * @brief Right push-button
+ */
+#define RIGHT_BUTTON_PIN                GPIO_Pin_3
+#define RIGHT_BUTTON_GPIO_PORT          GPIOD
+#define RIGHT_BUTTON_GPIO_CLK           RCC_AHB1Periph_GPIOD
+#define RIGHT_BUTTON_EXTI_LINE          EXTI_Line3
+#define RIGHT_BUTTON_EXTI_PORT_SOURCE   EXTI_PortSourceGPIOD
+#define RIGHT_BUTTON_EXTI_PIN_SOURCE    EXTI_PinSource3
+#define RIGHT_BUTTON_EXTI_IRQn          EXTI3_IRQn
+
+/**
+ * @brief ENCODER push-button
+ */
+#define ENCODER_BUTTON_PIN                GPIO_Pin_10
+#define ENCODER_BUTTON_GPIO_PORT          GPIOE
+#define ENCODER_BUTTON_GPIO_CLK           RCC_AHB1Periph_GPIOE
+#define ENCODER_BUTTON_EXTI_LINE          EXTI_Line10
+#define ENCODER_BUTTON_EXTI_PORT_SOURCE   EXTI_PortSourceGPIOE
+#define ENCODER_BUTTON_EXTI_PIN_SOURCE    EXTI_PinSource10
+#define ENCODER_BUTTON_EXTI_IRQn          EXTI15_10_IRQn
 /**
   * @}
   */ 

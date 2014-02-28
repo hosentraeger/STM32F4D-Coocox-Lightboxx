@@ -2,7 +2,6 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "semphr.h"
-#include "stm32f4_discovery.h"
 #include <stdio.h>
 #include <string.h>
 #include "USBTask.h"

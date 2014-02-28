@@ -2,7 +2,6 @@
 #include "task.h"
 #include "timers.h"
 #include "queue.h"
-#include "stm32f4_discovery.h"
 
 #include "led_btn_buz.h"
 
@@ -80,8 +79,6 @@ void SetupTimer ( )
 int main(void)
 {
 	SystemInit ( );
-
-	LedInit ( );
 
 	SetupTimer ( );
 

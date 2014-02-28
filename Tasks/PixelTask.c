@@ -1,6 +1,5 @@
 #include "FreeRTOS.h"
 #include "task.h"
-#include "stm32f4_discovery.h"
 #include "ws2812.h"
 #include "ColorWheelTable.h"
 #include "PixelTask.h"

@@ -14,10 +14,21 @@
 <editorArea activeWorkbook="DefaultEditorWorkbook">
 <info part="DefaultEditorWorkbook">
 <folder appearance="1" expanded="2">
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+</presentation>
 </folder>
 </info>
 </editorArea>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="DispatcherTask.c" partName="DispatcherTask.c" path="C:/Development/github/STM32F4D-Coocox-Lightboxx/Tasks/DispatcherTask.c" title="DispatcherTask.c" tooltip="C:/Development/github/STM32F4D-Coocox-Lightboxx/Tasks/DispatcherTask.c" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Lightboxx/Tasks/DispatcherTask.c"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3326" selectionTopPixel="2089"/>
+</editor>
+<editor activePart="true" focus="true" id="org.eclipse.cdt.ui.editor.CEditor" name="led_btn_buz.c" partName="led_btn_buz.c" path="C:/Development/github/STM32F4D-Coocox-Lightboxx/Driver/led_btn_buz/led_btn_buz.c" title="led_btn_buz.c" tooltip="C:/Development/github/STM32F4D-Coocox-Lightboxx/Driver/led_btn_buz/led_btn_buz.c" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Lightboxx/Driver/led_btn_buz/led_btn_buz.c"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1234" selectionTopPixel="0"/>
+</editor>
 </editors>
 <views>
 <view id="org.eclipse.debug.ui.MemoryView" partName="Memory">
@@ -29,7 +40,7 @@
 <element path="/Lightboxx"/>
 </expanded>
 <selection>
-<element path="/Lightboxx/README.md"/>
+<element path="/Lightboxx/main.c"/>
 </selection>
 </viewState>
 </view>
@@ -107,7 +118,7 @@
 </presentation>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@36d957" ratio="0.18745388" ratioLeft="254" ratioRight="1101" relationship="2" relative="org.eclipse.ui.internal.ViewStack@6749c5">
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@36d957" ratio="0.23690037" ratioLeft="321" ratioRight="1034" relationship="2" relative="org.eclipse.ui.internal.ViewStack@6749c5">
 <folder appearance="2" expanded="2">
 <page content="org.coocox.builder.ui.exampleView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
@@ -190,34 +201,49 @@
 <view id="org.eclipse.debug.ui.MemoryView"/>
 <fastViewBars/>
 <viewLayoutRec closeable="false" id="org.eclipse.debug.ui.DebugView"/>
-<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="org.eclipse.ui.internal.ViewStack@11b9447">&#x0A;<folder activePageID="org.coocox.builder.ui.views.ProjectView" appearance="2" expanded="2">&#x0A;<page content="org.coocox.builder.ui.views.ProjectView" label="Project"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<layout>
+<mainWindow>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@11b9447">
+<folder activePageID="org.coocox.builder.ui.views.ProjectView" appearance="2" expanded="2">
+<page content="org.coocox.builder.ui.views.ProjectView" label="Project"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="stickyFolderRight" ratio="0.74959743" ratioLeft="931" ratioRight="311" relationship="2" relative="org.eclipse.ui.internal.ViewStack@11b9447">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<info folder="true" part="stickyFolderRight" ratio="0.74959743" ratioLeft="931" ratioRight="311" relationship="2" relative="org.eclipse.ui.internal.ViewStack@11b9447">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@147a1db" ratio="0.6650718" ratioLeft="417" ratioRight="210" relationship="4" relative="org.eclipse.ui.internal.ViewStack@11b9447">&#x0A;<folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@147a1db" ratio="0.6650718" ratioLeft="417" ratioRight="210" relationship="4" relative="org.eclipse.ui.internal.ViewStack@11b9447">
+<folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">
+<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
 <page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
 <page content="org.eclipse.debug.ui.BreakpointView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 <part id="1"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@1e2fde6" ratio="0.601476" ratioLeft="815" ratioRight="540" relationship="2" relative="org.eclipse.ui.internal.ViewStack@147a1db">&#x0A;<folder activePageID="org.eclipse.debug.ui.VariableView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@1e2fde6" ratio="0.601476" ratioLeft="815" ratioRight="540" relationship="2" relative="org.eclipse.ui.internal.ViewStack@147a1db">
+<folder activePageID="org.eclipse.debug.ui.VariableView" appearance="2" expanded="2">
+<page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
 <page content="org.eclipse.debug.ui.MemoryView" label="Memory"/>
 <page content="org.eclipse.cdt.debug.ui.memory.memorybrowser.MemoryBrowser" label="LabelNotFound"/>
 <page content="org.eclipse.debug.ui.ExpressionView" label="LabelNotFound"/>
 <page content="org.coocox.codebugger.trace.ui.traceview" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
 <part id="1"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@10affbc" ratio="0.64280444" ratioLeft="871" ratioRight="484" relationship="2" relative="org.eclipse.ui.internal.ViewStack@11b9447">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.cdt.dsf.debug.ui.disassembly.view" label="LabelNotFound"/>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@10affbc" ratio="0.64280444" ratioLeft="871" ratioRight="484" relationship="2" relative="org.eclipse.ui.internal.ViewStack@11b9447">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.cdt.dsf.debug.ui.disassembly.view" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.ContentOutline" label="LabelNotFound"/>
 <page content="org.eclipse.debug.ui.RegisterView" label="LabelNotFound"/>
 <page content="org.coocox.coassistant.view.CoAssistantView_debug" label="LabelNotFound"/>
@@ -230,58 +256,213 @@
 </perspective>
 </perspectives>
 <workingSets/>
-<navigationHistory/>
+<navigationHistory>
+<editors>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/Lightboxx/Driver/led_btn_buz/led_btn_buz.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/Lightboxx/main.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/Lightboxx/cmsis_lib/source/stm32f4xx_tim.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/Lightboxx/cmsis_boot/startup/startup_stm32f4xx.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/Lightboxx/Tasks/DispatcherTask.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/Lightboxx/cmsis_lib/include/stm32f4xx_gpio.h"/>
+</editors>
+<item historyLabel="stm32f4xx_tim.c" index="2">
+<position/>
+</item>
+<item historyLabel="stm32f4xx_tim.c" index="2">
+<position/>
+</item>
+<item historyLabel="stm32f4xx_tim.c" index="2">
+<position/>
+</item>
+<item historyLabel="stm32f4xx_tim.c" index="2">
+<position/>
+</item>
+<item historyLabel="stm32f4xx_tim.c" index="2">
+<position/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="972" y="0"/>
+</item>
+<item historyLabel="main.c" index="1">
+<position/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="972" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="1064" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="3439" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="3474" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="3615" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="3610" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="3615" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position/>
+</item>
+<item historyLabel="stm32f4xx_tim.c" index="2">
+<position/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="3796" y="0"/>
+</item>
+<item historyLabel="stm32f4xx_tim.c" index="2">
+<position/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="1410" y="0"/>
+</item>
+<item historyLabel="startup_stm32f4xx.c" index="3">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="main.c" index="1">
+<position info="not_deleted" x="1982" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="972" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="1052" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="1100" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="1147" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="1239" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="1297" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="1359" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="1438" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="1479" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="1531" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="1595" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="1634" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="1694" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="1738" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="1791" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position/>
+</item>
+<item historyLabel="stm32f4xx_tim.c" index="2">
+<position info="not_deleted" x="25624" y="39"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="3889" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="3847" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="1695" y="0"/>
+</item>
+<item historyLabel="stm32f4xx_tim.c" index="2">
+<position info="not_deleted" x="25624" y="39"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position/>
+</item>
+<item historyLabel="stm32f4xx_tim.c" index="2">
+<position info="not_deleted" x="41344" y="3"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position/>
+</item>
+<item historyLabel="DispatcherTask.c" index="4">
+<position info="not_deleted" x="3326" y="0"/>
+</item>
+<item historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="2163" y="0"/>
+</item>
+<item historyLabel="stm32f4xx_gpio.h" index="5">
+<position info="not_deleted" x="2746" y="13"/>
+</item>
+<item active="true" historyLabel="led_btn_buz.c" index="0">
+<position info="not_deleted" x="2162" y="0"/>
+</item>
+</navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
 <workbenchWindowAdvisor/>
 <actionBarAdvisor/>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.systemExternalEditor" name="README.md" tooltip="Lightboxx/README.md">
-<persistable path="/Lightboxx/README.md"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx_gpio.h" tooltip="Lightboxx/cmsis_lib/include/stm32f4xx_gpio.h">
+<persistable path="/Lightboxx/cmsis_lib/include/stm32f4xx_gpio.h"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="LCDTask.h" tooltip="Lightboxx/Tasks/LCDTask.h">
-<persistable path="/Lightboxx/Tasks/LCDTask.h"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx_tim.c" tooltip="Lightboxx/cmsis_lib/source/stm32f4xx_tim.c">
+<persistable path="/Lightboxx/cmsis_lib/source/stm32f4xx_tim.c"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="LCDTask.c" tooltip="Lightboxx/Tasks/LCDTask.c">
-<persistable path="/Lightboxx/Tasks/LCDTask.c"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="led_btn_buz.h" tooltip="Lightboxx/Driver/led_btn_buz/led_btn_buz.h">
-<persistable path="/Lightboxx/Driver/led_btn_buz/led_btn_buz.h"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx_tim.h" tooltip="Lightboxx/cmsis_lib/include/stm32f4xx_tim.h">
-<persistable path="/Lightboxx/cmsis_lib/include/stm32f4xx_tim.h"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="led_btn_buz.c" tooltip="Lightboxx/Driver/led_btn_buz/led_btn_buz.c">
-<persistable path="/Lightboxx/Driver/led_btn_buz/led_btn_buz.c"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4_discovery.h" tooltip="Lightboxx/STM32F4-Discovery/stm32f4_discovery.h">
-<persistable path="/Lightboxx/STM32F4-Discovery/stm32f4_discovery.h"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx.h" tooltip="Lightboxx/cmsis_boot/stm32f4xx.h">
-<persistable path="/Lightboxx/cmsis_boot/stm32f4xx.h"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx_exti.h" tooltip="Lightboxx/cmsis_lib/include/stm32f4xx_exti.h">
-<persistable path="/Lightboxx/cmsis_lib/include/stm32f4xx_exti.h"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4_discovery.c" tooltip="Lightboxx/STM32F4-Discovery/stm32f4_discovery.c">
-<persistable path="/Lightboxx/STM32F4-Discovery/stm32f4_discovery.c"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="startup_stm32f4xx.c" tooltip="Lightboxx/cmsis_boot/startup/startup_stm32f4xx.c">
+<persistable path="/Lightboxx/cmsis_boot/startup/startup_stm32f4xx.c"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="main.c" tooltip="Lightboxx/main.c">
 <persistable path="/Lightboxx/main.c"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="timers.h" tooltip="Lightboxx/FreeRTOS/Source/include/timers.h">
-<persistable path="/Lightboxx/FreeRTOS/Source/include/timers.h"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="led_btn_buz.h" tooltip="Lightboxx/Driver/led_btn_buz/led_btn_buz.h">
+<persistable path="/Lightboxx/Driver/led_btn_buz/led_btn_buz.h"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="led_btn_buz.c" tooltip="Lightboxx/Driver/led_btn_buz/led_btn_buz.c">
+<persistable path="/Lightboxx/Driver/led_btn_buz/led_btn_buz.c"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="DispatcherTask.c" tooltip="Lightboxx/Tasks/DispatcherTask.c">
 <persistable path="/Lightboxx/Tasks/DispatcherTask.c"/>
 </file>
-<file factoryID="org.coocox.component.ui.editors.repository.RepositoryElementFactory" id="org.coocox.builder.ui.editors.repository.RepositoryBrowser" name="Repository" tooltip="Repository">
-<persistable>&#x0A;<subPage/>
-</persistable>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="USBTask.c" tooltip="Lightboxx/Tasks/USBTask.c">
+<persistable path="/Lightboxx/Tasks/USBTask.c"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="DS18B20.c" tooltip="Demo_41_RTC_USB/CoX_Driver/DS18B20/DS18B20.c">
-<persistable path="/Demo_41_RTC_USB/CoX_Driver/DS18B20/DS18B20.c"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="PixelTask.c" tooltip="Lightboxx/Tasks/PixelTask.c">
+<persistable path="/Lightboxx/Tasks/PixelTask.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="USBTask.h" tooltip="Lightboxx/Tasks/USBTask.h">
+<persistable path="/Lightboxx/Tasks/USBTask.h"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="AudioTask.c" tooltip="Lightboxx/Tasks/AudioTask.c">
+<persistable path="/Lightboxx/Tasks/AudioTask.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="main.h" tooltip="Lightboxx/main.h">
+<persistable path="/Lightboxx/main.h"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4_discovery.c" tooltip="Lightboxx/STM32F4-Discovery/stm32f4_discovery.c">
+<persistable path="/Lightboxx/STM32F4-Discovery/stm32f4_discovery.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4_discovery.h" tooltip="Lightboxx/STM32F4-Discovery/stm32f4_discovery.h">
+<persistable path="/Lightboxx/STM32F4-Discovery/stm32f4_discovery.h"/>
 </file>
 </mruList>
 </workbench>

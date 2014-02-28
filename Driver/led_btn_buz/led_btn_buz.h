@@ -8,7 +8,8 @@
 #define LED_TIMER_PERIOD_FAST 250
 #define LED_TIMER_PERIOD_SLOW 500
 
-#define LED_NUM_LEDS LEDn
+#define LED_NUM_LEDS 4
+#define LED_NUM_BUTTONS 3
 #define LED_FLASH_PERIOD 8 // this much LED_TIMER_PERIOD_FLASH milliseconds until next flash
 #define LED_FLASH_DUTY 1 // this much LED_TIMER_PERIOD_FLASH milliseconds led on
 
@@ -19,6 +20,13 @@ enum LED_MODE
 	LED_MODE_BLINK_FAST,	// led blinks fast (even on- and off-time)
 	LED_MODE_FLASH,		// short flash, long pause
 	LED_MODE_ON			// led is always on
+};
+
+enum LED_BUTTON_STATE
+{
+	LED_BUTTON_STATE_NONE,
+	LED_BUTTON_STATE_SHORT_PRESSED,
+	LED_BUTTON_STATE_LONG_PRESSED,
 };
 
 void LedInit ( );

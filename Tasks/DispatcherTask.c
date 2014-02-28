@@ -1,18 +1,37 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
-#include "stm32f4_discovery.h"
+
 #include "DispatcherTask.h"
-#include "stm32_ub_rtc.h"
 #include "LCDTask.h"
 #include "AudioTask.h"
 #include "USBTask.h"
+
+#include "main.h"
+#include "stm32_ub_rtc.h"
+#include "led_btn_buz.h"
 
 #include "stdio.h"
 #include "string.h"
 #include "stdlib.h"
 
 xQueueHandle xDispatcherQueue = NULL;
+
+void PrintHelp ( )
+{
+	printf ( "Lightboxx (v%s)\n", VERSION );
+	printf ( "================\n" );
+	printf ( "RTC\n" );
+	printf ( "  GET\n");
+	printf ( "  SET dd.mm.yy hh:mm:ss\n");
+	printf ( "AUDIO\n" );
+	printf ( "  PLAY filename\n" );
+	printf ( "  STOP\n" );
+	printf ( "LED\n" );
+	printf ( "  SET lednum,mode,pulses\n" );
+	printf ( "  GET buttonnum\n" );
+	printf ( " \n" );
+};
 
 void SendTimeToLCD ( struct ALCDMessage *pxLCDMessage )
 {
@@ -85,6 +104,39 @@ void SetRTCTime ( char * sTimeExpression )
 	};
 };
 
+void LedSet ( const char * sCommand )
+{
+	if ( 0 == sCommand ) return;
+	char * sMode, *sPulses;
+
+	uint8_t nLed = 0;
+	uint8_t nMode = 0;
+	uint8_t nPulses = -1;
+
+	sMode = strchr ( sCommand, ',' );
+	if ( 0 != sMode )
+	{
+		*sMode = '\0';
+		sMode++;
+		sPulses = strchr ( sMode, ',' );
+		if ( 0 != sPulses )
+		{
+			* sPulses = '\0';
+			sPulses++;
+		};
+	};
+	if ( sCommand ) nLed = atoi ( sCommand );
+	if ( sMode ) nMode = atoi ( sMode );
+	if ( sPulses ) nPulses = atoi ( sPulses );
+
+	LedModeSet ( nLed, nMode, nPulses );
+};
+
+void LedGet ( const char * sCommand )
+{
+
+};
+
 void ForwardAudioMessage ( const char * sCommand, const char * sFileName )
 {
 	struct AAudioMessage xAudioMessage, *pxAudioMessage = & xAudioMessage;
@@ -99,6 +151,7 @@ void DispatcherTask ( void * pvParameters )
 	struct ALCDMessage xLCDMessage, *pxLCDMessage = & xLCDMessage;
 
 	UB_RTC_Init ( );
+	LedInit ( );
 
 	xDispatcherQueue = xQueueCreate ( 8, sizeof ( unsigned long ) );
 
@@ -108,7 +161,11 @@ void DispatcherTask ( void * pvParameters )
 
 		if ( xQueueReceive ( xDispatcherQueue, & ( pxDispatcherMessage ), 250 / portTICK_RATE_MS ) )
 		{
-			if ( !strnicmp ( pxDispatcherMessage->Domain, "RTC", 3 ) )
+			if ( !strnicmp ( pxDispatcherMessage->Domain, "HELP", 3 ) )
+			{
+				PrintHelp ( );
+			}
+			else if ( !strnicmp ( pxDispatcherMessage->Domain, "RTC", 3 ) )
 			{
 				if ( !strnicmp ( pxDispatcherMessage->Command, "SET", 3 ) )
 				{
@@ -122,6 +179,20 @@ void DispatcherTask ( void * pvParameters )
 			else if ( !strnicmp ( pxDispatcherMessage->Domain, "AUDIO", 5 ) )
 			{
 				ForwardAudioMessage ( pxDispatcherMessage->Command, pxDispatcherMessage->Parameter );
+			}
+			else if ( !strnicmp ( pxDispatcherMessage->Domain, "LED", 3 ) )
+			{
+				if ( !strnicmp ( pxDispatcherMessage->Command, "SET", 3 ) )
+				{
+					LedSet ( pxDispatcherMessage->Parameter );
+				}
+				else if ( !strnicmp ( pxDispatcherMessage->Command, "GET", 3 ) )
+				{
+					LedGet ( pxDispatcherMessage->Parameter );
+				};
+			}
+			else
+			{
 			};
 		};
 	};

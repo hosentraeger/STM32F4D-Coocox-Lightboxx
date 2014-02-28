@@ -1,6 +1,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
-#include "stm32f4_discovery.h"
+#include "FreeRTOS.h"
+#include "task.h"
 #include "USBTask.h"
 #include "stm32_ub_usb_cdc.h"
 #include "stdio.h"
@@ -16,7 +17,7 @@ void USBTask ( void * pvParameters )
 	struct ADispatcherMessage xDispatcherMessage, *pxDispatcherMessage;
 	pxDispatcherMessage = & xDispatcherMessage;
 
-	char * domain, * command, * parameter;
+	char * domain = 0, * command = 0, * parameter = 0;
 
 	// Init vom USB-OTG-Port als CDC-Device
 	// (Virtueller-ComPort)
@@ -46,17 +47,20 @@ void USBTask ( void * pvParameters )
 					{
 						*parameter = '\0';
 						parameter++;
-					}
-					if ( 0 != xDispatcherQueue )
-					{
-						strncpy ( xDispatcherMessage.Domain, domain, 8 );
-						strncpy ( xDispatcherMessage.Command, command, 8 );
-						if ( parameter )
-							strncpy ( xDispatcherMessage.Parameter, parameter, 128 );
-						else
-							xDispatcherMessage.Parameter[0] = '\0';
-						xQueueSendToBack ( xDispatcherQueue, ( void * ) &pxDispatcherMessage, ( portTickType ) 0 );
 					};
+				};
+				if ( 0 != xDispatcherQueue )
+				{
+					strncpy ( xDispatcherMessage.Domain, domain, 8 );
+					if ( command )
+						strncpy ( xDispatcherMessage.Command, command, 8 );
+					else
+						xDispatcherMessage.Command[0] = '\0';
+					if ( parameter )
+						strncpy ( xDispatcherMessage.Parameter, parameter, 128 );
+					else
+						xDispatcherMessage.Parameter[0] = '\0';
+					xQueueSendToBack ( xDispatcherQueue, ( void * ) &pxDispatcherMessage, ( portTickType ) 0 );
 				};
 			};
 		};

@@ -134,7 +134,22 @@ void LedSet ( const char * sCommand )
 
 void LedGet ( const char * sCommand )
 {
+	uint8_t i = 0;
+	uint8_t from = 0;
+	uint8_t to = LED_NUM_BUTTONS;
+	if ( 0 != sCommand )
+	{
+		from = atoi ( sCommand );
+		to = from + 1;
+	};
 
+	for ( i = from; i < to; i++ )
+	{
+		if ( LedButtonGet ( i ) == LED_BUTTON_STATE_NOT_PRESSED ) printf ( "Button %d NOT PRESSED\n", i );
+		if ( LedButtonGet ( i ) == LED_BUTTON_STATE_SHORT_PRESSED ) printf ( "Button %d SHORT PRESSED\n", i );
+		if ( LedButtonGet ( i ) == LED_BUTTON_STATE_LONG_PRESSED ) printf ( "Button %d LONG PRESSED\n", i );
+	};
+	printf ( " \n" );
 };
 
 void ForwardAudioMessage ( const char * sCommand, const char * sFileName )

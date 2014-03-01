@@ -113,7 +113,7 @@ void LedGPIOInit ( )
 
 	/* Configure Button pins as input */
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_DOWN;
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2 | GPIO_Pin_3;
 	GPIO_Init(GPIOD, &GPIO_InitStructure);
 
@@ -183,10 +183,6 @@ void LedInit ( )
 	LedGPIOInit ( );
 	LedTimerInit ( );
 	for ( i = 0; i < LED_NUM_LEDS + 1; i++ ) LedOff ( i );
-	LedOn ( 0 );
-	LedOff ( 0 );
-	LedModeSet ( 0, 2, 4 );
-	LedModeSet ( 4, 2, 4 );
 };
 
 void LedTimerCallback ( long lTimerID )
@@ -196,7 +192,14 @@ void LedTimerCallback ( long lTimerID )
 
 	switch ( lTimerID )
 	{
-	case 0:
+	case LED_TIMER_FLASH:
+		// check the buttons
+		for ( i = 0; i < LED_NUM_BUTTONS; i++ )
+		{
+			if ( 0 != GPIO_ReadInputDataBit(ledBUTTON_PORT[i], ledBUTTON_PIN[i]) )
+				if ( button_state[i] < 0xff ) button_state[i]++;
+		};
+
 		// If requested state is OFF just switch off the led. This is checked in the short timer callback
 		for ( i = 0; i < LED_NUM_LEDS + 1; i++ ) if ( led_mode[i] == LED_MODE_OFF ) LedOff ( i );
 
@@ -230,25 +233,12 @@ void LedTimerCallback ( long lTimerID )
 		}
 		PulseCounter++;
 		break;
-	case 1:
+	case LED_TIMER_SLOW:
+	case LED_TIMER_FAST:
 		for ( i = 0; i < LED_NUM_LEDS + 1; i++ )
 		{
-			if ( led_mode[i] == LED_MODE_BLINK_FAST )
-			{
-				if ( led_pulses[i] == 0 )
-				{
-					led_mode[i] = LED_MODE_OFF;
-					return;
-				};
-				LedToggle ( i );
-				if ( led_pulses[i] < 0xff ) led_pulses[i]--;
-			};
-		};
-		break;
-	case 2:
-		for ( i = 0; i < LED_NUM_LEDS + 1; i++ )
-		{
-			if ( led_mode[i] == LED_MODE_BLINK_SLOW )
+			if ( ( ( LED_TIMER_SLOW == lTimerID ) && ( LED_MODE_BLINK_SLOW == led_mode[i] ) ) ||
+				 ( ( LED_TIMER_FAST == lTimerID ) && ( LED_MODE_BLINK_FAST == led_mode[i] ) ) )
 			{
 				if ( led_pulses[i] == 0 )
 				{
@@ -269,4 +259,24 @@ void LedModeSet ( uint8_t ledNum, enum LED_MODE ledMode, uint8_t ledPulses )
 	LedOff ( ledNum );
 	led_mode[ledNum] = ledMode;
 	led_pulses[ledNum] = ledPulses * 2;
+};
+
+enum LED_BUTTON_STATE LedButtonGet ( enum BUTTON button )
+{
+	enum LED_BUTTON_STATE ret = LED_BUTTON_STATE_NOT_PRESSED;
+	// button-down-counter = 0 -> button was not pressed
+	if ( button_state[button] == 0 ) return ( ret );
+
+	// if button is still down return "not pressed"
+	if ( 0 != GPIO_ReadInputDataBit(ledBUTTON_PORT[button], ledBUTTON_PIN[button]) ) return ( ret );
+
+	ret = LED_BUTTON_STATE_SHORT_PRESSED;
+
+	// if button was down for 1 sec -> "long pressed"
+	if ( button_state[button] > 1000 / LED_TIMER_PERIOD_FLASH ) ret = LED_BUTTON_STATE_LONG_PRESSED;
+
+	// reset button-down-counter
+	button_state[button] = 0;
+
+	return ( ret );
 };

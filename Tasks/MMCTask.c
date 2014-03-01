@@ -1,10 +1,10 @@
 #include "MMCTask.h"
 #include "FreeRTOS.h"
 #include "task.h"
-#include "stm32f4_discovery.h"
 #include "stdio.h"
 #include "ff.h"
 
+#include "led_btn_buz.h"
 /*
  * PC4 = CS
  * PC5 = CD (card detect)
@@ -15,6 +15,7 @@
 
 void MMCTask ( void * pvParameters )
 {
+	/*
 	FATFS FatFs;
 	FIL fil;
 	FRESULT res;
@@ -27,7 +28,7 @@ void MMCTask ( void * pvParameters )
 		while ( 1 );
 	}
 	printf ( "success!\n");
-
+*/
 	while ( 1 )
 	{
 /*
@@ -52,6 +53,18 @@ void MMCTask ( void * pvParameters )
 		f_close ( &fil ); // close the file
 		f_mount ( NULL, "", 1 ); // unmount the drive
 */
-		vTaskDelay ( 5000 / portTICK_RATE_MS );
-	}
-}
+		enum LED_BUTTON_STATE state;
+		state = LedButtonGet ( BUTTON_LEFT );
+		if ( LED_BUTTON_STATE_SHORT_PRESSED == state ) LedModeSet ( LED_GREEN, LED_MODE_BLINK_FAST, 5 );
+		if ( LED_BUTTON_STATE_LONG_PRESSED == state ) LedModeSet ( LED_GREEN, LED_MODE_BLINK_SLOW, 5 );
+
+		state = LedButtonGet ( BUTTON_RIGHT );
+		if ( LED_BUTTON_STATE_SHORT_PRESSED == state ) LedModeSet ( LED_YELLOW, LED_MODE_BLINK_FAST, 5 );
+		if ( LED_BUTTON_STATE_LONG_PRESSED == state ) LedModeSet ( LED_YELLOW, LED_MODE_BLINK_SLOW, 5 );
+
+		state = LedButtonGet ( BUTTON_ENCODER );
+		if ( LED_BUTTON_STATE_SHORT_PRESSED == state ) LedModeSet ( LED_BLUE, LED_MODE_BLINK_FAST, 5 );
+		if ( LED_BUTTON_STATE_LONG_PRESSED == state ) LedModeSet ( LED_BLUE, LED_MODE_BLINK_SLOW, 5 );
+		vTaskDelay ( 250 / portTICK_RATE_MS );
+	};
+};

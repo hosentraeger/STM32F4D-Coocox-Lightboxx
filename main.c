@@ -84,7 +84,6 @@ int main(void)
 
 	xTaskCreate( DispatcherTask, ( signed char * ) "Dispatcher", configMINIMAL_STACK_SIZE, NULL, 1, NULL );
 	xTaskCreate( PixelTask, ( signed char * ) "Pixel", configMINIMAL_STACK_SIZE, NULL, 1, NULL );
-	// xTaskCreate( LEDTask, ( signed char * ) "StatusLED", configMINIMAL_STACK_SIZE, NULL, 1, NULL );
 	xTaskCreate( LCDTask, ( signed char * ) "Display", configMINIMAL_STACK_SIZE, NULL, 1, NULL );
 	xTaskCreate( USBTask, ( signed char * ) "USB", configMINIMAL_STACK_SIZE, NULL, 1, NULL );
 	xTaskCreate( MMCTask, ( signed char * ) "SD-Card", 512, NULL, 1, NULL );

@@ -26,7 +26,7 @@
         <Option name="UseMemoryLayout" value="1"/>
         <Option name="LTO" value="0"/>
         <Option name="IsNewStartupCode" value="1"/>
-        <Option name="Library" value="Retarget"/>
+        <Option name="Library" value="Not use C Library"/>
         <Option name="UserEditLinker" value=""/>
         <LinkedLibraries>
           <Libset dir="stm32f4-discovery\" libs="pdmfilter_gcc"/>
@@ -240,16 +240,16 @@
     <File name="cmsis_lib/source/stm32f4xx_tim.c" path="cmsis_lib/source/stm32f4xx_tim.c" type="1"/>
     <File name="FreeRTOS/Source/include/FreeRTOS.h" path="FreeRTOS/Source/include/FreeRTOS.h" type="1"/>
     <File name="cmsis_lib/include/stm32f4xx_gpio.h" path="cmsis_lib/include/stm32f4xx_gpio.h" type="1"/>
-    <File name="Driver/rtc" path="" type="2"/>
     <File name="Driver/ff/mmc_stm32f4.c" path="Driver/ff/mmc_stm32f4.c" type="1"/>
+    <File name="Driver/rtc" path="" type="2"/>
     <File name="syscalls" path="" type="2"/>
     <File name="Driver/ff/diskio.h" path="Driver/ff/diskio.h" type="1"/>
     <File name="FreeRTOS/Source/include/StackMacros.h" path="FreeRTOS/Source/include/StackMacros.h" type="1"/>
-    <File name="Driver/cdc_device/usb_cdc_lolevel/usbd_cdc_vcp.c" path="Driver/cdc_device/usb_cdc_lolevel/usbd_cdc_vcp.c" type="1"/>
     <File name="Driver/ws2812" path="" type="2"/>
+    <File name="Driver/cdc_device/usb_cdc_lolevel/usbd_cdc_vcp.c" path="Driver/cdc_device/usb_cdc_lolevel/usbd_cdc_vcp.c" type="1"/>
     <File name="Tasks/USBTask.h" path="Tasks/USBTask.h" type="1"/>
-    <File name="Driver/cdc_device/usb_cdc_lolevel/usb_dcd_int.c" path="Driver/cdc_device/usb_cdc_lolevel/usb_dcd_int.c" type="1"/>
     <File name="cmsis_lib/include" path="" type="2"/>
+    <File name="Driver/cdc_device/usb_cdc_lolevel/usb_dcd_int.c" path="Driver/cdc_device/usb_cdc_lolevel/usb_dcd_int.c" type="1"/>
     <File name="semihosting/semihosting.h" path="semihosting/semihosting.h" type="1"/>
     <File name="Driver/ff/ff.h" path="Driver/ff/ff.h" type="1"/>
     <File name="FreeRTOS" path="" type="2"/>

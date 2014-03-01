@@ -3,6 +3,13 @@
 #include "stm32f4xx_rcc.h"
 #include "stm32f4xx_tim.h"
 
+unsigned ledTimerPeriods[LED_NUM_TIMER] =
+{
+		LED_TIMER_PERIOD_FLASH,
+		LED_TIMER_PERIOD_FAST,
+		LED_TIMER_PERIOD_SLOW,
+};
+
 const uint16_t ledGPIO_PIN[LED_NUM_LEDS] =
 {
 		GPIO_Pin_12,
@@ -11,11 +18,12 @@ const uint16_t ledGPIO_PIN[LED_NUM_LEDS] =
 		GPIO_Pin_15,
 };
 
-unsigned ledTimerPeriods[LED_NUM_TIMER] =
+GPIO_TypeDef* ledGPIO_PORT[LED_NUM_LEDS] =
 {
-		LED_TIMER_PERIOD_FLASH,
-		LED_TIMER_PERIOD_FAST,
-		LED_TIMER_PERIOD_SLOW,
+		GPIOD,
+		GPIOD,
+		GPIOD,
+		GPIOD,
 };
 
 const uint16_t ledBUTTON_PIN[LED_NUM_BUTTONS] =
@@ -39,6 +47,7 @@ uint8_t led_pulses[LED_NUM_LEDS+1]; // how many pulses to show
 
 void LedTimerInit ( )
 {
+#ifdef LED_ENABLE_BUZZER_PWM
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
 	TIM_OCInitTypeDef  TIM_OCInitStructure;
 
@@ -64,6 +73,7 @@ void LedTimerInit ( )
 	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
 	TIM_OC1Init(TIM12, &TIM_OCInitStructure);
 	TIM_OC1PreloadConfig(TIM12, TIM_OCPreload_Enable);
+#endif
 };
 
 void LedGPIOInit ( )
@@ -73,15 +83,22 @@ void LedGPIOInit ( )
 
 	// Buzzer
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_14;
+#ifdef LED_ENABLE_BUZZER_PWM
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
+#else
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+#endif
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 
+#ifdef LED_ENABLE_BUZZER_PWM
 	// enable alternate function
 	GPIO_PinAFConfig(GPIOB, GPIO_PinSource14, GPIO_AF_TIM12);
+#endif
 
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
 	/* Configure the GPIO_LED pins */
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12 | GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
@@ -102,7 +119,7 @@ void LedGPIOInit ( )
 
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;
 	GPIO_Init(GPIOE, &GPIO_InitStructure);
-	TIM12->CCER &= (uint16_t)~TIM_CCER_CC1E;
+
 };
 
 void LedOn ( uint8_t ledNum )
@@ -113,7 +130,11 @@ void LedOn ( uint8_t ledNum )
 	}
 	else if ( ledNum == LED_NUM_LEDS ) // that's the buzzer
 	{
+#ifdef LED_ENABLE_BUZZER_PWM
 		TIM_Cmd ( TIM12, ENABLE );
+#else
+		GPIOB->BSRRH = GPIO_Pin_14;
+#endif
 	};
 };
 
@@ -125,7 +146,11 @@ void LedOff ( uint8_t ledNum )
 	}
 	else if ( ledNum == LED_NUM_LEDS ) // that's the buzzer
 	{
+#ifdef LED_ENABLE_BUZZER_PWM
 		TIM_Cmd ( TIM12, DISABLE );
+#else
+		GPIOB->BSRRL = GPIO_Pin_14;
+#endif
 	};
 };
 
@@ -137,6 +162,7 @@ void LedToggle ( uint8_t ledNum )
 	}
 	else if ( ledNum == LED_NUM_LEDS ) // that's the buzzer
 	{
+#ifdef LED_ENABLE_BUZZER_PWM
 		if ( 0 == ( TIM12->CR1 & TIM_CR1_CEN ) )
 		{
 			TIM_Cmd ( TIM12, ENABLE );
@@ -145,13 +171,22 @@ void LedToggle ( uint8_t ledNum )
 		{
 			TIM_Cmd ( TIM12, DISABLE );
 		};
+#else
+		GPIOB->ODR ^= GPIO_Pin_14;
+#endif
 	};
 };
 
 void LedInit ( )
 {
+	uint8_t i;
 	LedGPIOInit ( );
 	LedTimerInit ( );
+	for ( i = 0; i < LED_NUM_LEDS + 1; i++ ) LedOff ( i );
+	LedOn ( 0 );
+	LedOff ( 0 );
+	LedModeSet ( 0, 2, 4 );
+	LedModeSet ( 4, 2, 4 );
 };
 
 void LedTimerCallback ( long lTimerID )

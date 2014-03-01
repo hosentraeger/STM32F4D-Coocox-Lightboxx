@@ -3,15 +3,32 @@
 
 #include "stm32f4xx.h"
 
-#define LED_NUM_TIMER 3
-#define LED_TIMER_PERIOD_FLASH 100
-#define LED_TIMER_PERIOD_FAST 250
-#define LED_TIMER_PERIOD_SLOW 500
+#include "led_btn_buz_config.h"
 
-#define LED_NUM_LEDS 4
-#define LED_NUM_BUTTONS 3
-#define LED_FLASH_PERIOD 8 // this much LED_TIMER_PERIOD_FLASH milliseconds until next flash
-#define LED_FLASH_DUTY 1 // this much LED_TIMER_PERIOD_FLASH milliseconds led on
+enum LED
+{
+	LED_RED,
+	LED_GREEN,
+	LED_BLUE,
+	LED_YELLOW,
+	LED_NUM_LEDS
+};
+
+enum BUTTON
+{
+	BUTTON_LEFT,
+	BUTTON_RIGHT,
+	BUTTON_ENCODER,
+	LED_NUM_BUTTONS
+};
+
+enum LED_TIMER
+{
+	LED_TIMER_FLASH,
+	LED_TIMER_SLOW,
+	LED_TIMER_FAST,
+	LED_NUM_TIMER
+};
 
 enum LED_MODE
 {
